@@ -32,6 +32,9 @@ function copy_files_to_package_directory {(
     rm -rf $PKG_DIR
     mkdir -p "./${PKG_DIR}/DEBIAN"
     mkdir -p "./${PKG_DIR}/usr/bin"
+    mkdir -p "./${PKG_DIR}/etc/systemd/system"
+    mkdir -p "./${PKG_DIR}/etc/caddy/conf"
+    mkdir -p "./${PKG_DIR}/etc/caddy/ssl"
 
     (
         export PACKAGE="${SOFTWARE_NAME}"
@@ -39,6 +42,11 @@ function copy_files_to_package_directory {(
         envsubst < "./assets/control.tpl" > "./${PKG_DIR}/DEBIAN/control"
     )
     cp "./artifact/caddy" "./${PKG_DIR}/usr/bin/caddy"
+    cp "./assets/caddy.service" "./${PKG_DIR}/etc/systemd/system/caddy.service"
+    cp "./assets/Caddyfile" "./${PKG_DIR}/etc/caddy/Caddyfile"
+    cp "./assets/scripts/postinst.sh" "./${PKG_DIR}/DEBIAN/postinst"
+    cp "./assets/scripts/prerm.sh" "./${PKG_DIR}/DEBIAN/prerm"
+    cp "./assets/scripts/postrm.sh" "./${PKG_DIR}/DEBIAN/postrm"
 
     echo "OK"
 )}
