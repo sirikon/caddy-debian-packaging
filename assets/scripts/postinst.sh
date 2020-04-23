@@ -3,7 +3,7 @@
 set -e
 
 getent group caddy &>/dev/null || groupadd --system caddy
-id -u caddy &>/dev/null || useradd somename useradd --system \
+id -u caddy &>/dev/null || useradd --system \
     --gid caddy \
     --home-dir /etc/caddy \
     --shell /usr/sbin/nologin \
